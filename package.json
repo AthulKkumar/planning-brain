@@ -1,0 +1,25 @@
+{
+  "name": "planning-brain",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "echo \"Tests coming soon\" && exit 0",
+    "lint": "echo \"Linting with basic checks\" && node -c src/index.js",
+    "docker:build": "docker build -t planning-brain .",
+    "docker:run": "docker run -p 3000:3000 planning-brain",
+    "docker:dev": "docker-compose up --build",
+    "docker:down": "docker-compose down"
+  },
+  "author": "AkK",
+  "license": "ISC",
+  "description": "Simple voyage planning API",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.1"
+  }
+}

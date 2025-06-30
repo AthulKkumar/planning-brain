@@ -1,0 +1,24 @@
+name: Docker Build
+
+on:
+  push:
+    branches: [ master ]
+    tags: [ 'v*' ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Build Docker image
+      run: docker build -t planning-brain .
+    
+    - name: Test Docker image
+      run: |
+        docker run -d --name test-container -p 3000:3000 planning-brain
+        sleep 10
+        docker stop test-container
+        docker rm test-container 

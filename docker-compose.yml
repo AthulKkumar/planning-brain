@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # Planning Brain API
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - MONGODB_URI=mongodb://127.0.0.1:27017/planning-brain
+    depends_on:
+      - mongodb
+
+  # MongoDB Database
+  mongodb:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=planning-brain
+
+  # MongoDB Admin Interface (optional)
+  mongo-express:
+    image: mongo-express:latest
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=admin123
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+    networks:
+      - planning-brain-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  planning-brain-network:
+    driver: bridge 
