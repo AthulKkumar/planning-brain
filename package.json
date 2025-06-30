@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
+    "build": "node -c src/index.js && echo \"Build verification complete\"",
     "test": "echo \"Tests coming soon\" && exit 0",
     "lint": "echo \"Linting with basic checks\" && node -c src/index.js",
     "docker:build": "docker build -t planning-brain .",
