@@ -1,4 +1,3 @@
-# Use Node.js 22 to match CI environment
 FROM node:22-alpine
 
 # Set working directory
