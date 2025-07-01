@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import api from "../controllers/api";
+import api from "../controllers/api/index.js";
 
 const app = express();
 

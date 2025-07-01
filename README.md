@@ -7,7 +7,6 @@ A simple REST API for maritime voyage planning and optimization.
 ### Using Docker (Recommended)
 ```bash
 # Clone the repository
-git clone <your-repo-url>
 cd planning-brain
 
 # Copy environment file

@@ -1,5 +1,3 @@
-version: '3.0'
-
 services:
   # Planning Brain API
   api:
@@ -9,9 +7,11 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=3000
-      - MONGODB_URI=mongodb://127.0.0.1:27017/planning-brain
+      - MONGODB_URI=mongodb://mongodb:27017/planning-brain
     depends_on:
       - mongodb
+    networks:
+      - planning-brain-network
 
   # MongoDB Database
   mongodb:
@@ -20,6 +20,10 @@ services:
       - "27017:27017"
     environment:
       - MONGO_INITDB_DATABASE=planning-brain
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - planning-brain-network
 
   # MongoDB Admin Interface (optional)
   mongo-express:

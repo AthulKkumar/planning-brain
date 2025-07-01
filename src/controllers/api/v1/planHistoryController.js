@@ -1,8 +1,11 @@
 import { Voyage } from '../../../models/index.js';
+import mongoose from 'mongoose';
 
 export const getPlanHistory = async (req, res) => {
     try {
-        const { shipId, page = 1, limit = 10 } = req.query;
+        let { shipId, page = 1, limit = 10 } = req.query;
+
+        shipId = new mongoose.Types.ObjectId(shipId);
 
         // Build search filter
         const filter = {};

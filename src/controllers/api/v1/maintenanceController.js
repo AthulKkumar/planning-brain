@@ -1,8 +1,12 @@
 import { Maintenance, Ship, FuelLogs } from '../../../models/index.js';
+import mongoose from 'mongoose';
+
 
 export const getMaintenanceAlerts = async (req, res) => {
     try {
-        const { shipId, timeframe = 30 } = req.query;
+        let { shipId, timeframe = 30 } = req.query;
+
+        shipId = new mongoose.Types.ObjectId(shipId);
 
         // Build filter for scheduled maintenance
         const filter = {

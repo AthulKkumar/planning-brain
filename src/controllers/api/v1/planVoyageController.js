@@ -1,8 +1,9 @@
 import { Ship, Voyage } from '../../../models/index.js';
+import mongoose from 'mongoose';
 
 export const planVoyage = async (req, res) => {
     try {
-        const { origin, destination, departureTime, weatherForecast, cargoLoad, shipId } = req.body;
+        let { origin, destination, departureTime, weatherForecast, cargoLoad, shipId } = req.body;
 
         // Validate required fields
         if (!origin || !destination || !departureTime || !weatherForecast || !cargoLoad || !shipId) {
@@ -12,20 +13,14 @@ export const planVoyage = async (req, res) => {
             });
         }
 
-        // Find and validate ship
-        const ship = await Ship.findById(shipId);
+        shipId = new mongoose.Types.ObjectId(shipId);
+
+        // Fetch ship data from database
+        const ship = await Ship.find(shipId);
         if (!ship) {
             return res.status(404).json({
                 success: false,
                 message: 'Ship not found'
-            });
-        }
-
-        // Validate cargo capacity
-        if (cargoLoad > ship.capacity) {
-            return res.status(400).json({
-                success: false,
-                message: 'Cargo exceeds ship capacity'
             });
         }
 

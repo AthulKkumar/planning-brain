@@ -1,24 +1,11 @@
 import { Voyage } from '../../../models/index.js';
+import mongoose from 'mongoose';
 
 export const submitFeedback = async (req, res) => {
     try {
-        const { voyageId, actualFuelUsed, actualArrival, actualSpeed, actualDuration, deviations } = req.body;
+        let { voyageId, actualFuelUsed, actualArrival, actualSpeed, actualDuration, deviations } = req.body;
 
-        // Validate voyage ID
-        if (!voyageId) {
-            return res.status(400).json({
-                success: false,
-                message: 'Voyage ID is required'
-            });
-        }
-
-        const voyage = await Voyage.findById(voyageId);
-        if (!voyage) {
-            return res.status(404).json({
-                success: false,
-                message: 'Voyage not found'
-            });
-        }
+        voyageId = new mongoose.Types.ObjectId(voyageId);
 
         // Update voyage with actual data
         const actualData = {};
